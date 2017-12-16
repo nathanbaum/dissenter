@@ -1,0 +1,63 @@
+<div id="board-title">
+  <h2>{{board.name}}</h2>
+  {{#if user}}
+  <form id="follow" action="/follow" method="post">
+    <input type="hidden" name="board" value="{{board.name}}">
+    <input type="submit" value="Follow this Board">
+  </form>
+  {{/if}}
+</div>
+<div id="replypane">
+  {{#each board.posts as |post|}}
+    {{#if post.open}}
+      <div class="reply">
+        <a class="title" href="/board/{{@root.board.name}}/post/{{post.slug}}">{{post.title}}</a>
+        {{#if post.img}}
+          <img class="content" src="{{post.content}}"/>
+        {{/if}}
+        {{#if post.txt}}
+          <p class="content">{{post.content}}</p>
+        {{/if}}
+        {{#if post.lnk}}
+          <div class="content thumbnail" href="{{post.content}}"></div>
+        {{/if}}
+        <div class="metadata">
+          {{post.replies.length}} Replies
+        </div>
+      </div>
+    {{else if @root.user}}
+      <div class="reply">
+        <a class="title" href="/board/{{@root.board.name}}/post/{{post.slug}}">{{post.title}}</a>
+        {{#if post.img}}
+          <img class="content" src="{{post.content}}"/>
+        {{/if}}
+        {{#if post.txt}}
+          <p class="content">{{post.content}}</p>
+        {{/if}}
+        {{#if post.lnk}}
+          <div class="content thumbnail" href="{{post.content}}"></div>
+        {{/if}}
+        <div class="metadata">
+          {{post.replies.length}} Replies
+        </div>
+      </div>
+    {{/if}}
+  {{/each}}
+</div>
+{{#if user}}
+<form class="new-post" method="post">
+  <h3 style="color: #605a51">Write a Reply:</h3>
+  <input type="text" name="title" placeholder="Title"><br>
+  <textarea name="content" placeholder="Content" rows=4 cols=30></textarea><br>
+  <div class="content-type">
+    <div class="radio"><input type="radio" name="contentType" value="txt">txt</div>
+    <div class="radio"><input type="radio" name="contentType" value="lnk">lnk</div>
+    <div class="radio"><input type="radio" name="contentType" value="img">img</div>
+  </div>
+  <div class="open">
+    <div class="radio"><input type="radio" name="open" value="true">open</div>
+    <div class="radio"><input type="radio" name="open" value="false">closed</div>
+  </div>
+  <input type="submit" value="Submit Post">
+</form>
+{{/if}}

@@ -1,0 +1,29 @@
+<form id="new-board" action="/new-board" method="post">
+  <h3>Create a New Board!</h3>
+  <input type="text" name="name" value="" placeholder="Board Name">
+  <input type="submit" value="Make my board!">
+</form>
+<div class="mod-boards">
+  <h3>These are the Boards that you moderate:</h3>
+  {{#each user.mods as |board|}}
+  <a href="/board/{{board.name}}">{{board.name}}</a>
+  {{/each}}
+</div>
+<h3 style="color: #605a51">These are the Posts you have Authored</h3>
+{{#each user.posts as |post|}}
+<div class="reply">
+  {{post.title}}
+  {{#if post.img}}
+    <img class="content" src="{{post.content}}"/>
+  {{/if}}
+  {{#if post.txt}}
+    <p class="content">{{post.content}}</p>
+  {{/if}}
+  {{#if post.lnk}}
+    <div class="content thumbnail" href="{{post.content}}"></div>
+  {{/if}}
+  <div class="metadata">
+    {{post.replies.length}} Replies
+  </div>
+</div>
+{{/each}}

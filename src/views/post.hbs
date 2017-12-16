@@ -1,0 +1,64 @@
+<div class="post">
+  <div class="title">
+  {{post.title}}
+  {{#if author}}
+    <form action="/board/{{board.name}}/post/{{post.slug}}/edit">
+      <input type="submit" value="Edit">
+    </form>
+  {{/if}}
+  </div>
+  <div class="metadata">
+    In reply to
+    {{#if replyto}}
+      <a href="/board/{{board.name}}/post/{{replyto.slug}}">{{replyto.title}}</a>
+    {{else}}
+      <a href="/board/{{board.name}}">{{board.name}}</a>
+    {{/if}}
+  </div>
+  {{#if post.img}}
+    <img class="content" src="{{post.content}}"/>
+  {{/if}}
+  {{#if post.txt}}
+    <p class="content">{{post.content}}</p>
+  {{/if}}
+  {{#if post.lnk}}
+    <div class="content thumbnail" href="{{post.content}}"></div>
+  {{/if}}
+</div>
+
+<div id="replypane">
+  {{#each post.replies as |reply|}}
+  <div class="reply">
+    <a class="title" href="/board/{{@root.board.name}}/post/{{reply.slug}}">{{reply.title}}</a>
+    {{#if reply.img}}
+      <img class="content" src="{{reply.content}}"/>
+    {{/if}}
+    {{#if reply.txt}}
+      <p class="content">{{reply.content}}</p>
+    {{/if}}
+    {{#if reply.lnk}}
+      <div class="content thumbnail" href="{{reply.content}}"></div>
+    {{/if}}
+    <div class="metadata">
+      {{reply.replies.length}} Replies
+    </div>
+  </div>
+  {{/each}}
+</div>
+{{#if user}}
+  <h3 style="color: #605a51">Write a Reply:</h3>
+  <form class="new-post" method="post">
+    <input type="text" name="title" placeholder="Title"><br>
+    <textarea name="content" placeholder="Content" rows=4 cols=30></textarea><br>
+    <div class="content-type">
+      <div class="radio"><input type="radio" name="contentType" value="txt">txt</div>
+      <div class="radio"><input type="radio" name="contentType" value="lnk">lnk</div>
+      <div class="radio"><input type="radio" name="contentType" value="img">img</div>
+    </div>
+    <div class="open">
+      <div class="radio"><input type="radio" name="open" value="true">open</div>
+      <div class="radio"><input type="radio" name="open" value="false">closed</div>
+    </div>
+    <input type="submit" value="Submit Post">
+  </form>
+{{/if}}

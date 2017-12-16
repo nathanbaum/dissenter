@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dissenter</title>
+		<link href="/css/global.css" type="text/css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=IM+Fell+DW+Pica+SC|Cormorant+Garamond" rel="stylesheet">
+		<script src="/script/thumbnail.js"></script>
+  </head>
+<body>
+	<div class="header" user="{{#if user}}true{{else}}false{{/if}}">
+
+		<nav id="menu">
+			{{#if user}}
+
+		    <form action="/feed">
+		      <input type="submit" value="Your Feed">
+		    </form>
+		    <form action="/board/{{user.username}}">
+		      <input type="submit" value="Personal Board">
+		    </form>
+		    <form action="/profile/{{user.username}}">
+		      <input type="submit" value="Your Profile">
+		    </form>
+
+			{{/if}}
+		</nav>
+
+
+		<a id="logo" href="/">Dissenter</a>
+
+		<div class="error">
+			{{#if err}}
+			{{err}}
+			{{/if}}
+		</div>
+
+		<div id="logout">
+			{{#if user}}
+			<a href="/logout">Log Out</a>
+			{{/if}}
+		</div>
+
+		<div id="pointer">
+			{{#if user}}
+			^
+			{{/if}}
+		</div>
+
+	</div>
+	<div id="main-page" user="{{#if user}}true{{else}}false{{/if}}">
+  	{{{body}}}
+	</div>
+</body>
+</html>

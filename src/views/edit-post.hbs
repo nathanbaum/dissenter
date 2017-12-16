@@ -1,0 +1,16 @@
+<a href="/logout">Log Out</a>
+<h3>Edit Post:</h3>
+<form class="new-post" method="post">
+  <input type="text" name="title" placeholder="Title" value="{{post.title}}"><br>
+  <textarea name="content" placeholder="Content" rows=4 cols=30>{{post.content}}</textarea><br>
+  <div class="content-type">
+    <div class="radio"><input type="radio" name="contentType" value="txt" {{#if post.txt}} checked="checked" {{/if}} >txt</div>
+    <div class="radio"><input type="radio" name="contentType" value="lnk" {{#if post.lnk}} checked="checked" {{/if}} >lnk</div>
+    <div class="radio"><input type="radio" name="contentType" value="img" {{#if post.img}} checked="checked" {{/if}} >img</div>
+  </div>
+  <div class="open">
+    <div class="radio"><input type="radio" name="open" value="true" {{#if post.open}} checked="checked" {{/if}} >open</div>
+    <div class="radio"><input type="radio" name="open" value="false" {{#unless post.open}} checked="checked" {{/unless}} >closed</div>
+  </div>
+  <input type="submit" value="Submit Edits">
+</form>

@@ -1,0 +1,19 @@
+<h3 style="color: #605a51">Your Feed</h3>
+{{#each posts as |post|}}
+  <div class="reply">
+    <a class="title" href="/board/{{post.replyto.name}}/post/{{post.slug}}">{{post.title}}</a>
+    {{#if post.img}}
+      <img class="content" src="{{post.content}}"/>
+    {{/if}}
+    {{#if post.txt}}
+      <p class="content">{{post.content}}</p>
+    {{/if}}
+    {{#if post.lnk}}
+      <div class="content thumbnail" href="{{post.content}}"></div>
+    {{/if}}
+    <div class="metadata">
+      From board: <a href="/board/{{post.replyto.name}}">{{post.replyto.name}}</a>
+      {{post.replies.length}} Replies
+    </div>
+  </div>
+{{/each}}
