@@ -841,12 +841,21 @@ app.get('*', function(req, res) {
   res.redirect('/404' + query);
 });
 
-let portHTTP = 8000, portHTTPS = 8000;
+let portHTTP = 8000, portHTTPS = 8080;
+
+let options = {};
 
 if (process.env.NODE_ENV === 'PRODUCTION') {
   portHTTP = 80;
   portHTTPS = 443;
+
+  options = {
+    key: fs.readFileSync(conf.key),
+    cert: fs.readFileSync(conf.cert)
+  };
 }
 
 http.createServer(app).listen(portHTTP);
-//https.createServer()
+if (process.env.NODE_ENV === 'PRODUCTION') {
+  https.createServer(options, app).listen(portHTTPS);
+}
