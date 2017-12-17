@@ -43,6 +43,8 @@ mongoose.model('Post', Post);
 
 let dbconf = null;
 // is the environment variable, NODE_ENV, set to PRODUCTION?
+
+console.log('Starting in mode:', process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'PRODUCTION') {
  // if we're in PRODUCTION mode, then read the configration from a file
  // use blocking file io to do this...
