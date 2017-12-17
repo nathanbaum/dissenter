@@ -12,7 +12,7 @@ const User = new mongoose.Schema({
   boards: [{type: ObjectID, ref: 'Board'}], // an array of references to Board documents that this user follows
   mods: [{type: ObjectID, ref: 'Board'}], // an array of references to Board documents that this user moderates
   posts: [{type: ObjectID, ref: 'Post'}] // an array of references to posts that this user has made
-});
+}, { usePushEach: true });
 
 const Board = new mongoose.Schema({
   moderators: [{type: ObjectID, ref: 'User'}], // an array of references to User documents
@@ -20,7 +20,7 @@ const Board = new mongoose.Schema({
   name: String, // this.name must be unique : if this is a personal board then this.moderators will have only one entry, and this.moderators[0].username === this.name
   posts: [{type: ObjectID, ref: 'Post'}], // an array of references to posts whose replyto atribute === this.name
   archive: [{type: ObjectID, ref: 'Post'}] //an array of old posts -- posts here will always show up after those in this.posts
-});
+}, { usePushEach: true });
 
 const Post = new mongoose.Schema({
   replyto: {type: ObjectID, ref: 'Post'}, // a reference to either a post document or a board document
@@ -33,7 +33,7 @@ const Post = new mongoose.Schema({
     // if this.contentType == 'lnk' : a string with the external link
   replies: [{type: ObjectID, ref: 'Post'}], // an array of references to post documents where this.replies[n].replyto === reference to this
   open: Boolean // boolean : if this post is open to the public or not
-});
+}, { usePushEach: true });
 
 Post.plugin(urlSlugs('title'));
 
